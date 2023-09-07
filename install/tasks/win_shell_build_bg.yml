@@ -1,20 +1,5 @@
 
 ---
-#  - name: ".net 3.5"
-#    copy:
-#      dest: C:\install0.ps1
-#      content: |
-#       Import-Module ServerManager;
-#       $NETFramework = @(
-#        "NET-Framework-Features"
-#        "NET-Framework-Core"
-#        )
-#        foreach ($NET in $NETFramework ){
-#        Install-WindowsFeature  -Verbose  -Name $NET  -Source C:\temp\sxs
-#        }    
-#    register: install0
-#  - name: exec
-#    win_shell: C:\install0.ps1 >> C:\installlog0.txt
   - name: "Install roles and features RDS"
     win_shell: |
      $features = @(
