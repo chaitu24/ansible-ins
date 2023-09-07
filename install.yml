@@ -1,0 +1,8 @@
+---
+  - name: "server manager setup"
+    hosts: app_server
+    roles:
+    - windows-iis
+    - install
+    - prechecks
+    timeout: 9600
