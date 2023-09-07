@@ -1,0 +1,9 @@
+- name: rsa tools
+  win_feature:
+    name:
+     - RSAT-Clustering
+     - RSAT-Clustering-Mgmt
+     - RSAT-Clustering-AutomationServer
+     - RSAT-Clustering-PowerShell
+     - RSAT-Clustering-CmdInterface
+    state: present

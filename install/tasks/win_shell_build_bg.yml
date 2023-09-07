@@ -1,0 +1,96 @@
+
+---
+#  - name: ".net 3.5"
+#    copy:
+#      dest: C:\install0.ps1
+#      content: |
+#       Import-Module ServerManager;
+#       $NETFramework = @(
+#        "NET-Framework-Features"
+#        "NET-Framework-Core"
+#        )
+#        foreach ($NET in $NETFramework ){
+#        Install-WindowsFeature  -Verbose  -Name $NET  -Source C:\temp\sxs
+#        }    
+#    register: install0
+#  - name: exec
+#    win_shell: C:\install0.ps1 >> C:\installlog0.txt
+  - name: "Install roles and features RDS"
+    win_shell: |
+     $features = @(
+     "RDS-Connection-Broker"
+     "RDS-Gateway"
+     )
+     foreach ($f in $features)
+     {
+     echo $f "installing"
+     Install-WindowsFeature -Name $f
+     }
+    register: install1
+  - name: "Install common tools"
+    copy:
+      dest: C:\install.ps1
+      content: |
+        $features = @(
+        "Web-Common-Http"
+        "Web-Http-Redirect"
+        "Web-Custom-Logging"
+        "Web-Client-Auth"
+        "Web-Cert-Auth"
+        "Web-Url-Auth"
+        "Web-Security"
+        "Web-Filtering"
+        "Web-Basic-Auth"
+        "Web-Digest-Auth"
+        "Web-Windows-Auth"
+        "Web-App-Dev"
+        "Web-Net-Ext45"
+        "Web-AppInit"
+        "Web-ASP"
+        "Web-Asp-Net"
+        "Web-Asp-Net45"
+        "Web-CGI"
+        "Web-ISAPI-Ext"
+        "Web-ISAPI-Filter"
+        "Web-Includes"
+        "Web-Metabase"
+        "Web-Lgcy-Mgmt-Console"
+        "Web-Lgcy-Scripting"
+        "Web-WMI"
+        "NET-Framework-45-ASPNET"
+        "Web-WHC"
+        "MSMQ-Services"
+        "MSMQ-Server"
+        "NLB"
+        "RSAT"
+        "RSAT-Feature-Tools"
+        "RSAT-RDS-Tools"
+        "RSAT-Role-Tools"
+        "RSAT-NLB"
+        "FS-SMB1"
+        "Telnet-Client"
+        "PowerShellRoot"
+        "PowerShell"
+        "PowerShell-ISE"
+        "WoW64-Support"
+        "WAS-Process-Model"
+        "WAS-NET-Environment"
+        "WAS-Config-APIs"
+        "RSAT-Clustering"
+        "RSAT-Clustering-Mgmt"
+        "RSAT-Clustering-AutomationServer"
+        "RSAT-Clustering-PowerShell"
+        "RSAT-Clustering-CmdInterface"
+        )
+        foreach ($f in $features)
+        {
+        echo $f "installing"
+        Install-WindowsFeature  -Verbose -Name $f
+        }
+    register: install2
+  - name: exec
+    win_shell: C:\install.ps1 >> C:\installlog.txt
+  - name: "Install Results"
+    debug:
+      msg: "{{ install1 | to_nice_yaml }}"
+

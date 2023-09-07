@@ -1,0 +1,10 @@
+---
+# tasks file for lpinstall
+- import_tasks: win_shell_build_bg.yml
+- import_tasks: win_build1.yml
+- import_tasks: win_build2.yml
+- import_tasks: win_build3.yml
+- import_tasks: win_build4.yml
+- import_tasks: win_build5.yml
+- import_tasks: win_build6.yml
+

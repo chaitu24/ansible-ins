@@ -1,0 +1,5 @@
+- name: asp .net, ftp and isapi 
+  win_feature:
+    name:                 
+      - Web-Ftp-Service
+    state: present  

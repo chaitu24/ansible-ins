@@ -1,0 +1,12 @@
+- name: "rest Services"
+  win_feature:
+    name:   
+       - RPC-over-HTTP-Proxy
+       - Windows-Internal-Database
+    state: present
+- name: win process auto
+  win_feature:
+     name:
+       - WAS
+     state: present
+     become: True

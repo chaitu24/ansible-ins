@@ -1,0 +1,6 @@
+- name: win performance
+  win_feature:
+    name:
+      - Web-Performance
+    include_sub_features: true  
+    state: present

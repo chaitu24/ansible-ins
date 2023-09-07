@@ -1,0 +1,15 @@
+---
+    - name: iSCSI enabling
+      win_feature:
+        name:
+        - File-Services
+        - FS-FileServer
+        state: present
+ #   - name: Storage Services
+ #     win_feature:
+ #       name: Storage-Services
+ #       state: present
+    - name: Network policy and access service
+      win_feature:
+        name: NPAS
+        state: present

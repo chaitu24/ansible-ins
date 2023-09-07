@@ -1,0 +1,12 @@
+-  name: NET-Framework-46-Features
+   win_feature:
+     name:
+       - NET-Framework-45-Core
+       - NET-WCF-Services45
+       - NET-WCF-TCP-PortSharing45
+     state: present
+-  name: msg queueing
+   win_feature:
+     name: MSMQ
+     include_sub_features: true
+     state: present

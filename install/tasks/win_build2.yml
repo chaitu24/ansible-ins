@@ -1,0 +1,10 @@
+---
+- name: "Install Health and Web-Http-Logging modules"
+  win_feature:
+    name:
+      - Web-Health
+      - Web-Http-Logging
+      - Web-Log-Libraries
+      - Web-Request-Monitor
+      - Web-Http-Tracing
+    state: present
