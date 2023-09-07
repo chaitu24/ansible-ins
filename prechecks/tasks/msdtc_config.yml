@@ -1,0 +1,40 @@
+---
+- name: execute powershell code
+  win_shell: |
+      [string]$MSDTCSecurity="HKLM:\Software\Microsoft\MSDTC\Security"
+      [string]$MSDTC="HKLM:\Software\Microsoft\MSDTC"
+      Stop-Service MSDTC
+      sleep -Seconds 10
+      Set-Service MSDTC -StartupType Automatic -WarningAction SilentlyContinue -ErrorAction SilentlyContinue
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccess -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessInbound -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessOutbound -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessAdmin -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessClients -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessTip -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name NetworkDtcAccessTransactions -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name XaTransactions -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name LuTransactions -Value 1
+      Set-ItemProperty -Path $MSDTCSecurity -Name AccountName -Value "NT AUTHORITYNetworkService"
+      $A=@(
+      "FallbackToUnsecureRPCIfNecessary"
+      "TurnOffRpcSecurity"
+      "AllowOnlySecureRpcCalls"
+      )
+      if ({$MSDTC -ccontains $A}) {
+      sleep -Seconds 10
+      set-ItemProperty -path $MSDTC -name "FallbackToUnsecureRPCIfNecessary" -Value 0
+      set-ItemProperty -path $MSDTC -name "TurnOffRpcSecurity" -Value 1
+      set-ItemProperty -Path $MSDTC  -Name "AllowOnlySecureRpcCalls" -Value 0
+      }
+      else {
+      New-ItemProperty -path $MSDTC -name "FallbackToUnsecureRPCIfNecessary" -Value 0
+      New-ItemProperty -path $MSDTC -name "TurnOffRpcSecurity" -Value 1
+      New-ItemProperty -Path $MSDTC  -Name "AllowOnlySecureRpcCalls" -Value 0
+      }
+      sleep -Seconds 10
+      Start-Service MSDTC
+  register: results
+- name: Print out results
+  debug: msg="{{ results.rc == 1 }}"
+

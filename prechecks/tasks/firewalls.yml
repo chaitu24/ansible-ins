@@ -1,0 +1,15 @@
+---
+- name: "firewall enabling"
+  community.windows.win_firewall_rule:
+    name: "{{ item['name'] }}"
+    state: "{{ item['state'] }}"
+    enabled: "{{ item['enabled'] }}"
+    direction: "{{ item['direction']|default(omit) }}"
+    protocol: "{{ item['protocol']|default(omit) }}"
+    remoteport: "{{ item['remoteport']|default(omit) }}"
+  with_items: "{{ firewall_enabling }}"
+    #  with_items:
+    #    - World Wide Web Services (HTTP Traffic-In)
+    #    - World Wide Web Services (HTTPS Traffic-In)
+    #    - Distributed Transaction Coordinator
+      

@@ -1,0 +1,10 @@
+---
+# tasks file for prechecks
+- include: file_check.yml
+  when: prechecks_role is defined
+- include: firewalls.yml
+  when: firewall_enabling is defined
+- include: regstat_check.yml
+  when: dnet_checks is defined
+- include: msdtc_config.yml
+#- include: dcom_port.yml

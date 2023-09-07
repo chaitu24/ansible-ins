@@ -1,0 +1,24 @@
+---
+# defaults file for prechecks
+prechecks_role:
+  - name: File checks
+    path: 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe'
+firewall_enabling:
+  - name: World Wide Web Services (HTTP Traffic-In
+    state: present
+    enabled: yes
+  - name: World Wide Web Services (HTTPS Traffic-In)
+    state: present
+    enabled: yes
+  - name: Distributed Transaction Coordinator
+    state: present
+    enabled: yes
+  - name: Retalix HQ.Net Services (Out)
+    direction: out
+    action: allow
+    protocol: tcp
+    remoteport: 9000-9004
+    state: present
+    enabled: yes
+dnet_checks:
+  - path: HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full

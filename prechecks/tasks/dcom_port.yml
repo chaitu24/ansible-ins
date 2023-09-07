@@ -1,0 +1,5 @@
+---
+- name: dcom properties
+  win_shell: |
+     New-ItemProperty "HKLM:\Software\Microsoft\RPC\Internet" -Name "Ports" -Value '5000-5200' -PropertyType MultiString -Force
+  register: res

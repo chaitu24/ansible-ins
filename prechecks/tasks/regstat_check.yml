@@ -1,0 +1,10 @@
+---
+- name: ".net check"
+  win_reg_stat:
+    path: "{{ item['path'] }}"
+  register: current_version_default
+  with_items: "{{ dnet_checks }}"
+- name: version check
+  debug:
+    msg: "{{ current_version_default }}"
+
